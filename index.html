@@ -230,11 +230,11 @@ Please contact lpalbou@gmail.com for questions or issues
                         <table class="table table-bordered table-hover table-striped" id="tb-s3objects">
                             <thead>
                                 <tr>
-                                    <th>Object</th>
+                                    <th>Folders and files</th>
                                     <th>Folder</th>
                                     <th>Last Modified</th>
                                     <th>Timestamp</th>
-                                    <th>Size</th>
+                                    <th style="width:200px">Size</th>
                                 </tr>
                             </thead>
                             <tbody id="tbody-s3objects"></tbody>
@@ -677,11 +677,13 @@ Please contact lpalbou@gmail.com for questions or issues
 
         // Initial DataTable settings
         $('#tb-s3objects').DataTable({
-            iDisplayLength: 50,
+            iDisplayLength: 1000,
+
             order: [
                 [1, 'asc'],
                 [0, 'asc']
             ],
+
             aoColumnDefs: [{
                 "aTargets": [0],
                 "mData": "Key",
@@ -716,12 +718,36 @@ Please contact lpalbou@gmail.com for questions or issues
         });
 
         $('#tb-s3objects').DataTable().column(s3exp_columns.key).visible(false);
-        
+        $('#tb-s3objects').DataTable().column(2).visible(false); // hide last modified
+        $('#tb-s3objects').DataTable().column(3).visible(false); // hide timestamp
+
+        // NOTE: also hide the pagination. When too many folders and the 1000 limit is reached, pagination should be reintroduced and the following lines commented
+        var elt = document.getElementById("tb-s3objects_length");
+        elt.hidden = true;
+        var elt = document.getElementById("tb-s3objects_paginate");        
+        elt.hidden = true;
+
+
+        console.log("datatable: ", $.fn.dataTableExt);
+
         // Custom sort for the Key column so that folders appear before objects
         $.fn.dataTableExt.oSort['key-asc'] = function(a, b) {
-            var x = (isfolder(a) ? "0-" + a : "1-" + a).toLowerCase();
-            var y = (isfolder(b) ? "0-" + b : "1-" + b).toLowerCase();
-            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+
+            let x = (isfolder(a) ? "0-" + a : "1-" + a).toLowerCase();
+            let y = (isfolder(b) ? "0-" + b : "1-" + b).toLowerCase();
+            let res = ((x < y) ? -1 : ((x > y) ? 1 : 0));
+
+            // This trick is used to know if we are at the first level or not
+            let counta = (a.match(/\//g) || []).length;
+            let countb = (b.match(/\//g) || []).length;
+            if(res == 0) return 0;
+
+            // At the first level, we want a descending order (dates)
+            if(counta > 1 || countb > 1) {
+                return res;                
+            }
+            // Otherwise, ascending order
+            return -res;
         };
 
         $.fn.dataTableExt.oSort['key-desc'] = function(a, b) {
@@ -736,6 +762,8 @@ Please contact lpalbou@gmail.com for questions or issues
         });
 
 
+
+
         var hostnames = parser.hostname.split('.');
         var pathnames = parser.pathname.split('/');
         
@@ -743,6 +771,7 @@ Please contact lpalbou@gmail.com for questions or issues
         // Setting this avoid the URL parsing in case of redirection / CNAME
         delete s3exp_config.ContinuationToken;
         s3exp_config.Delimiter = "/";
+        // note: this line gets rewritten by the script s3_add_index when submitting the file to S3
         s3exp_config.Bucket = "geneontology-reroute"
         // s3exp_config.Region = "us-east-1"
         path2 = pathnames.join("/");
