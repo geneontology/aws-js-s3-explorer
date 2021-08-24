@@ -16,7 +16,7 @@ either express or implied. See the License for the specific language governing
 permissions and limitations under the License.
 
 ===
-This is further modified for the Gene Ontology project by Laurent-Philippe Albou, PhD 
+This is further modified for the Gene Ontology project by Laurent-Philippe Albou, PhD
 Please contact lpalbou@gmail.com for questions or issues
 ===
 
@@ -34,7 +34,7 @@ Please contact lpalbou@gmail.com for questions or issues
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="https://geneontology-public.s3.amazonaws.com/assets/font-awesome.min.css">
-    
+
 
     <style type="text/css">
         #wrapper {
@@ -77,41 +77,41 @@ Please contact lpalbou@gmail.com for questions or issues
         }
 
         blockquote { font-size: 14px; font-style: italic }
-        
+
         p { margin: 10 0 10px; }
-        
-        h1 { 
+
+        h1 {
             display: inline-block;
-            font-size: 34px; 
-            color: #4965c2; 
+            font-size: 34px;
+            color: #4965c2;
             margin-top: 10px;
         }
 
         .padding-right {
             padding-right: 12px;
         }
-        
-        .logo img { 
-            width: 175px; 
-            margin-right: 30px 
+
+        .logo img {
+            width: 175px;
+            margin-right: 30px
         }
 
-        .panel-heading { 
+        .panel-heading {
             padding: 10px 10px 10px 15px;
-            box-shadow: 0 1px 4px 0 rgba(0,0,0,0.30); 
+            box-shadow: 0 1px 4px 0 rgba(0,0,0,0.30);
         }
         .panel-body {
             max-width: 1000px;
-            margin: 0 auto;        
+            margin: 0 auto;
         }
         .small-margin {
             margin: 2px 2px;
         }
 
         .disclaimer {
-            margin: 3rem 0rem 6rem 0rem;      
+            margin: 3rem 0rem 6rem 0rem;
         }
-               
+
     </style>
 </head>
 
@@ -162,11 +162,11 @@ Please contact lpalbou@gmail.com for questions or issues
                             </a>
                         </li>
                     </ul>
-    
+
                     <a href="https://www.alliancegenome.org" target="blank" alt="Alliance of Genome Resources" style="padding-right: 10px;">
                         <img src="https://geneontology-public.s3.amazonaws.com/assets/ALLIANCE-logo-nobackground_foundingmember.png" alt="Alliance of Genome Resources" style="height: 60px; margin-right: 10px;"/>
                     </a>
-        
+
                 </div>
 
                         <!-- Controls -->
@@ -200,7 +200,7 @@ Please contact lpalbou@gmail.com for questions or issues
                                     </div>
                                 </div>
                             </div>
-    
+
                     </div>
 
                     <!-- Panel including S3 object table -->
@@ -225,8 +225,8 @@ Please contact lpalbou@gmail.com for questions or issues
                             <span style="vertical-align: sub; font-weight: 800">Current Folder: </span>
                             <div id="list_folders"></div>
                         </div>
-                        
-                        
+
+
                         <table class="table table-bordered table-hover table-striped" id="tb-s3objects">
                             <thead>
                                 <tr>
@@ -244,7 +244,7 @@ Please contact lpalbou@gmail.com for questions or issues
             </div>
         </div>
     </div>
-  
+
 </body>
 
 </html>
@@ -381,7 +381,7 @@ Please contact lpalbou@gmail.com for questions or issues
     // Note: this code is a little complex right now so it would be good to find
     // a simpler way to create the breadcrumbs.
     function folder2breadcrumbs(data) {
-        if(VERBOSE) { 
+        if(VERBOSE) {
             console.log('Bucket: ' + data.params.Bucket);
             console.log('Prefix: ' + data.params.Prefix);
         }
@@ -459,7 +459,7 @@ Please contact lpalbou@gmail.com for questions or issues
                     $('#bucket-loader').removeClass('fa-spin');
                     bootbox.alert("Error accessing S3 bucket " + scope.params.Bucket + ". Error: " + err);
                 } else {
-                    if(VERBOSE) { 
+                    if(VERBOSE) {
                         console.log("data retrieved: ", data);
                         // console.log('Data: ' + JSON.stringify(data));
                         console.log("Options: " + $("input[name='optionsdepth']:checked").val());
@@ -724,7 +724,7 @@ Please contact lpalbou@gmail.com for questions or issues
         // NOTE: also hide the pagination. When too many folders and the 1000 limit is reached, pagination should be reintroduced and the following lines commented
         var elt = document.getElementById("tb-s3objects_length");
         elt.hidden = true;
-        var elt = document.getElementById("tb-s3objects_paginate");        
+        var elt = document.getElementById("tb-s3objects_paginate");
         elt.hidden = true;
 
         // Custom sort for the Key column so that folders appear before objects
@@ -741,7 +741,7 @@ Please contact lpalbou@gmail.com for questions or issues
 
             // At the first level, we want a descending order (dates)
             if(counta > 1 || countb > 1) {
-                return res;                
+                return res;
             }
             // Otherwise, ascending order
             return -res;
@@ -763,7 +763,7 @@ Please contact lpalbou@gmail.com for questions or issues
 
         var hostnames = parser.hostname.split('.');
         var pathnames = parser.pathname.split('/');
-        
+
 
         // Setting this avoid the URL parsing in case of redirection / CNAME
         delete s3exp_config.ContinuationToken;
@@ -773,7 +773,7 @@ Please contact lpalbou@gmail.com for questions or issues
         // s3exp_config.Region = "us-east-1"
         path2 = pathnames.join("/");
         path2 = path2.startsWith("/") ? path2.substring(1) : path2;
-        s3exp_config.Prefix = path2.includes("/index.html") ? path2.substring(0, path2.lastIndexOf("index.html")) : "";       
+        s3exp_config.Prefix = path2.includes("/index.html") ? path2.substring(0, path2.lastIndexOf("index.html")) : "";
         if(VERBOSE) { console.log("s3exp_config: ", s3exp_config); }
 
 
