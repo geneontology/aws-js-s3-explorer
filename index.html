@@ -15,9 +15,7 @@ on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 either express or implied. See the License for the specific language governing
 permissions and limitations under the License.
 
-===
-This is further modified for the Gene Ontology project by Laurent-Philippe Albou, PhD
-Please contact lpalbou@gmail.com for questions or issues
+This is further modified for the Gene Ontology project (https://geneontology.org).
 ===
 
 -->
@@ -28,7 +26,7 @@ Please contact lpalbou@gmail.com for questions or issues
     <title>Gene Ontology Data Archive</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="http://www.geneontology.org/favicon.ico">
+    <link rel="shortcut icon" href="https://geneontology.org/favicon.ico">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" integrity="sha384-PmY9l28YgO4JwMKbTvgaS7XNZJ30MK9FAZjjzXtlqyZCqBY6X6bXIkM++IkyinN+" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap-theme.min.css" integrity="sha384-jzngWsPS6op3fgRCDTESqrEJwRKck+CILhJVO5VvaAZCq8JYf8HsR/HPpBOOPZfR" crossorigin="anonymous">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
@@ -131,7 +129,7 @@ Please contact lpalbou@gmail.com for questions or issues
                         <div class="btn-group pull-left">
                             <!-- App title -->
                             <div class="pull-left logo" style="margin-top: 10px;">
-                                <a href="http://www.geneontology.org">
+                                <a href="https://geneontology.org">
                                     <img src="https://geneontology-public.s3.amazonaws.com/assets/go-logo.large.png">
                                 </a>
                             </div>
@@ -211,9 +209,9 @@ Please contact lpalbou@gmail.com for questions or issues
                             <p>
                                 The <b>Gene Ontology archive</b> provides GO data - ontology, annotations, and associated files - starting from March 2004. The archive was built from the legacy GO CVS, SVN and archive products to reconstruct GO releases on a monthly basis, similar to our current release cycle. The file structure and file format were made consistent with the current GO monthly releases produced since 2018.
                                 <br><br>
-                                File structure and format are further described in the [ <a href="http://geneontology.org/docs/archives/">GO Archive documentation</a> ].
+                                File structure and format are further described in the [ <a href="https://geneontology.org/docs/archives/">GO Archive documentation</a> ].
                                 <br>
-                                Questions or suggestions can be sent to the [ <a href="http://help.geneontology.org">GO Helpdesk</a> ].
+                                Questions or suggestions can be sent to the [ <a href="https://help.geneontology.org">GO Helpdesk</a> ].
                                 <br><br>
                                 <b>Note</b>: <i>users are encouraged to cite the date of the GO release (e.g. 2005-04-01) used in their analysis to enable the reproducibility of their experiments.</i>
                             </p>
@@ -769,7 +767,7 @@ Please contact lpalbou@gmail.com for questions or issues
         delete s3exp_config.ContinuationToken;
         s3exp_config.Delimiter = "/";
         // note: this line gets rewritten by the script s3_add_index when submitting the file to S3
-        s3exp_config.Bucket = "geneontology-reroute"
+        s3exp_config.Bucket = "go-data-product-release"
         // s3exp_config.Region = "us-east-1"
         path2 = pathnames.join("/");
         path2 = path2.startsWith("/") ? path2.substring(1) : path2;
